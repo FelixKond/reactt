@@ -1,4 +1,5 @@
 # Ivanov Ivan 221-322
+# Ссылка на видео работы приложения https://disk.yandex.ru/i/qu_djqvXTW1EAg
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
