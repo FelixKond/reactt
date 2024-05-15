@@ -3,6 +3,9 @@ import { Button, Space, Table, Tag } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import axios from 'axios';
 import Form from './components/form';
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import { useForm } from "react-hook-form";
+import MyDocument from './components/MyDocument';
 
 interface TableDataType {
   key: string;
@@ -67,6 +70,12 @@ const tableColumns: ColumnsType<TableDataType> = [
   },
 ];
 
+interface IMyForm {
+  picture: FileList;
+  name: string;
+}
+
+
 const tableData: TableDataType[] = [
   {
     key: '1',
@@ -121,6 +130,15 @@ const columns: ColumnsType<DataType> = [
 ]
 
 const App = () => {
+  const [task, setTasks] = useState<IMyForm | null>(null);
+
+  const { register, handleSubmit } = useForm<IMyForm>({
+    mode: "onBlur",
+  });
+
+  const MyForm = (data: IMyForm) => {
+    setTasks(data);
+  };
 
   const LIMIT_LIST_SCHOOL = 10;
 
@@ -147,6 +165,40 @@ const App = () => {
         <Button onClick={(() => setPage(page + 1))}>Вперед</Button>
       </div>
       <Form/>
+      <form onSubmit={handleSubmit(MyForm)}>
+        <input
+          {...register("name", {
+            required: "Поле обязательно для заполнения",
+            minLength: {
+              value: 5,
+              message: "Нужно больше символов",
+            },
+          })}
+          placeholder="Enter name"
+        />
+        <input
+          type="file"
+          accept="image/*"
+          {...register("picture", {
+            required: "Изображение",
+          })}
+        />
+        <button type="submit">Сохранить</button>
+      </form>
+      {task?.name && task?.picture && (
+        <PDFDownloadLink document={<MyDocument name={task.name} picture={task.picture} />} fileName="lab_pdf.pdf">
+          {({ loading, error }) => {
+            try {
+              if (loading) return "Loading document...";
+              if (error) throw new Error("Error generating document");
+              return "Download now!";
+            } catch (error) {
+              console.error("PDF generation error:", error);
+              return "Error generating PDF";
+            }
+          }}
+        </PDFDownloadLink>
+      )}
     </>
   )
 }
