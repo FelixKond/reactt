@@ -44,19 +44,17 @@ const Form = () => {
   const [tasks, setTasks] = useState<IMyForm[]>([]);
 
   const saveElement: SubmitHandler<IMyForm> = (data) => {
-    // здесь мы передаём новый массив, который содержит все старые элементы и новый
-    // ...prev - мы получаем все элементы текущего стэйте (с помощью spread оператора)
     setTasks((prev) => [...prev, data]);
     reset();
   };
 
   const {
-    register, // метод для регистрации вашего инпута, для дальнейшей работы с ним
-    handleSubmit, // метод для получения данных формы, если валидация прошла успешна
-    formState: { errors, isValid }, // errors - список ошибок валидации для всех полей формы
-    reset, // метод для очистки полей формы
+    register, 
+    handleSubmit, 
+    formState: { errors, isValid }, 
+    reset, 
   } = useForm<IMyForm>({
-    mode: "onBlur", // парметр onBlur - отвечает за запуск валидации при не активном состоянии поля
+    mode: "onBlur", 
   });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
