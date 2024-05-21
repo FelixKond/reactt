@@ -91,9 +91,7 @@ const Form = () => {
               })}
             />
           </InputWrapper>
-          {errors.name && (
-            <Alert message={errors.name.message} type="error" showIcon />
-          )}
+          {errors.name && <Alert message={errors.name.message} type="error" showIcon />}
           <InputWrapper>
             <CustomLabel htmlFor="age">Age</CustomLabel>
             <input
@@ -109,9 +107,7 @@ const Form = () => {
               })}
             />
           </InputWrapper>
-          {errors.age && (
-            <Alert message={errors.age.message} type="error" showIcon />
-          )}
+          {errors.age && <Alert message={errors.age.message} type="error" showIcon />}
           <InputWrapper>
             <CustomLabel htmlFor="country">Country</CustomLabel>
             <input
@@ -126,23 +122,11 @@ const Form = () => {
               })}
             />
           </InputWrapper>
-          {errors.country && (
-            <Alert message={errors.country.message} type="error" showIcon />
-          )}
-          <Button
-            type="primary"
-            htmlType="submit"
-            disabled={!isValid}
-            onClick={showModal}
-          >
+          {errors.country && <Alert message={errors.country.message} type="error" showIcon />}
+          <Button type="primary" htmlType="submit" disabled={!isValid} onClick={showModal}>
             Сохранить
           </Button>
-          <Modal
-            title="Form Result"
-            open={isModalOpen}
-            onOk={handleOk}
-            onCancel={handleCancel}
-          >
+          <Modal title="Form Result" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
             {tasks.map((task) => (
               <p>
                 {task.name} - {task.age} - {task.country}
