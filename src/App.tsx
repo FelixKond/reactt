@@ -5,8 +5,8 @@ import axios from "axios";
 import Form from "./components/form";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { useForm } from "react-hook-form";
-import MyDocument from "./components/MyDocument";
-import DinamicPagination from "./components/DinamicPagination";
+import MyDocument from './components/MyDocument';
+import DinamicPagination from './components/DinamicPagination';
 
 
 interface TableDataType {
